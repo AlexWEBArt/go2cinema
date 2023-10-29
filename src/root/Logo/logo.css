@@ -1,0 +1,31 @@
+.page-header {
+    padding: 1.4rem;
+  }
+  
+.page-header__title {
+    margin: 0;
+    font-weight: 900;
+    font-size: 3.4rem;
+    color: #FFFFFF;
+    text-transform: uppercase;
+}
+.page-header__title span {
+    font-weight: 100;
+}
+
+.page-header {
+    color: #FFFFFF;
+    text-transform: uppercase; 
+}
+.page-header .page-header__title {
+    margin: 0;
+    font-weight: 900;
+    font-size: 3.4rem; 
+}
+.page-header .page-header__title span {
+    font-weight: 100; 
+}
+.page-header .page-header__subtitle {
+    font-size: 1rem;
+    letter-spacing: 0.46em; 
+}
