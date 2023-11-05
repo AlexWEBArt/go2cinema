@@ -5,14 +5,12 @@ import LegendHall from './features/LegendHall/LegendHall'
 import SchemeHall from './features/SchemeHall/SchemeHall'
 import SessionInfo from './features/SessionInfo/SessionInfo'
 import './buyingScheme.css'
-import { useLocation } from 'react-router'
 
 // import { v4 as uuidv4 } from "uuid"
 
 
-export default function BuyingScheme() {
-    const { state } = useLocation()
-    console.log(state)
+export default function BuyingScheme({filmSeance}) {
+    console.log(filmSeance)
     const filmList = [
         {
             image: 'i/poster1.jpg',

@@ -5,7 +5,10 @@ import './avalibleSessionsFilm.css'
 import { v4 as uuidv4 } from "uuid"
 
 
-export default function AvalibleSessionsFilm() {
+export default function AvalibleSessionsFilm({film, filmSeances}) {
+    console.log(filmSeances)
+
+    if (!filmSeances) return null
 
     const filmList = [
         {
@@ -47,9 +50,9 @@ export default function AvalibleSessionsFilm() {
 
     return (
         <section className="movie">
-            <AvalibleSessionsFilmItem film={filmList[0]} />
+            <AvalibleSessionsFilmItem film={film} />
             
-            {filmList[0].hallsSessions.map(hallSessions => <AvalibleSessions key={uuidv4()} hallSessions={hallSessions}/>)}
+            <AvalibleSessions film={film} filmSeances={filmSeances}/>
         </section>
     )
 }
