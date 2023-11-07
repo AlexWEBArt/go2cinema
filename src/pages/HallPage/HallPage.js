@@ -18,7 +18,7 @@ export default function HallPage({ data }) {
 
     return (
         <div className="page">
-            <BuyingScheme filmSeance={state} />
+            <BuyingScheme halls={halls} filmSeance={state}  />
         </div>
     )
 }

@@ -2,7 +2,7 @@
 // import './avalibleSessionsFilms.css'
 
 export default function AvalibleSessionsFilmItem({film}) {
-    console.log(film)
+
     return (
         <div className="movie__info">
             <div className="movie__poster">

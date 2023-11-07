@@ -1,11 +1,11 @@
-export default function SessionInfo({film}) {
+export default function SessionInfo({seance}) {
 
     return (
         <div className="buying__info">
             <div className="buying__info-description">
-                <h2 className="buying__info-title">{film.title}</h2>
-                <p className="buying__info-start">Начало сеанса: {film.hallsSessions[0].sessions[0]}</p>
-                <p className="buying__info-hall">{film.hallsSessions[0].hallName}</p>          
+                <h2 className="buying__info-title">{seance.film.film_name}</h2>
+                <p className="buying__info-start">Начало сеанса: {seance.startSession}</p>
+                <p className="buying__info-hall">{seance.hallName}</p>          
             </div>
             <div className="buying__info-hint">
                 <p>Тапните дважды,<br/>чтобы увеличить</p>

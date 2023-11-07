@@ -4,6 +4,8 @@
 import AvalibleSessionsFilm from "../../widgets/AvalibleSessionsFilm/AvalibleSessionsFilm";
 import DateLineSelection from "../../widgets/DateLineSelection/DateLineSelection";
 
+import { v4 as uuidv4 } from "uuid"
+
 export default function HomePage({data}) {
     // console.log(data)
     if (!data) return
@@ -23,10 +25,9 @@ export default function HomePage({data}) {
                         hall_name: hallName
                     })
                 })
-                console.log(filmHalls)
                 // const hallsSeances = halls.filter(hall => filmHallsId.includes(hall.hall_id))
                 // console.log(hallsSeances)
-                return <AvalibleSessionsFilm film={film} filmSeances={filmHalls}/>
+                return <AvalibleSessionsFilm key={uuidv4()} film={film} filmSeances={filmHalls}/>
             })}
         </div>
     )

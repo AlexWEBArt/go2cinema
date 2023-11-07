@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid"
 
 
 export default function AvalibleSessionsFilm({film, filmSeances}) {
-    console.log(filmSeances)
 
     if (!filmSeances) return null
 

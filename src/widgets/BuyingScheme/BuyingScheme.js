@@ -9,7 +9,7 @@ import './buyingScheme.css'
 // import { v4 as uuidv4 } from "uuid"
 
 
-export default function BuyingScheme({filmSeance}) {
+export default function BuyingScheme({halls, filmSeance}) {
     console.log(filmSeance)
     const filmList = [
         {
@@ -49,11 +49,13 @@ export default function BuyingScheme({filmSeance}) {
         // },
     ]
 
+    const hallConfig = halls.filter(hall => hall.hall_name === filmSeance.hallName)[0].hall_config
+
     return (
         <section className="buying">
-            <SessionInfo film={filmList[0]} />
+            <SessionInfo seance={filmSeance} />
             <div className="buying-scheme">
-                <SchemeHall />
+                <SchemeHall hallConfig={hallConfig}/>
                 <LegendHall />
             </div>
             <Booking />
