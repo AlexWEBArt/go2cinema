@@ -1,13 +1,19 @@
 import { v4 as uuidv4 } from "uuid"
 
-export default function ChangeHall({halls}) {
+export default function ChangeHall({halls, setChangedHall}) {
+    const handlerChangeHall = (e) => {
+        const { target } = e
+        const parent = target.closest('li')
+        // console.log(parent.querySelector('.conf-step__selector').innerHTML)
+        setChangedHall(parent.querySelector('.conf-step__selector').innerHTML)
+    }
 
     const renderHallsListItem = (hall) => {
         return (
             <li key={uuidv4()}>
-                <input type="radio" className="conf-step__radio" name="chairs-hall" value={hall.hallName} checked />
+                <input type="radio" className="conf-step__radio" name="chairs-hall" value={hall.hall_name} onChange={handlerChangeHall}/>
                 <span className="conf-step__selector">
-                    {hall.hallName}
+                    {hall.hall_name}
                 </span>
             </li>
         )

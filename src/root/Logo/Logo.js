@@ -1,7 +1,7 @@
 // import { useState } from "react"
 import './logo.css'
 
-export default function Logo({admin}) {
+export default function Logo({isAdminPage}) {
 
     // useEffect(() => {
     //     // В момент изменения авторизации, добавьте или удалите класс для body.
@@ -15,7 +15,7 @@ export default function Logo({admin}) {
     return (
         <header className={"page-header"} >
             <h1 className="page-header__title">Идём<span>в</span>кино</h1>
-            {admin && <span className="page-header__subtitle">Администраторррская</span>}
+            {isAdminPage && <span className="page-header__subtitle">Администраторррская</span>}
         </header>
     )
 }

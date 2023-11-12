@@ -63,7 +63,7 @@ export default function Ticket({from}) {
         <section className="ticket">
             <TicketTitle title={title}/>
             <div className="ticket__info-wrapper">
-                <TicketDiscription film={filmList[0]} />
+                <TicketDiscription state={state} />
                 {
                     isFrom === 'payment' && 
                     <>

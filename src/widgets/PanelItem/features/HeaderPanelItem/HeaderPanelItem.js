@@ -5,7 +5,7 @@ export default function HeaderPanelItem({title}) {
 
     const handleAdminHeaderClick = () => {
         const target = headerRef.current
-
+        
         if (target.classList.contains('conf-step__header_opened')) {
             target.classList.remove('conf-step__header_opened')
             target.classList.add('conf-step__header_closed')
