@@ -54,12 +54,12 @@ export default function Auth({ admin, setAdmin }) {
                 <h2 className="login__title">Авторизация</h2>
             </header>
             <div className="login__wrapper">
-                <form className="login__form" action="login_submit" method="get" accept-charset="utf-8" onSubmit={handleSubmit}>
-                    <label className="login__label" for="mail">
+                <form className="login__form" action="login_submit" method="get" acceptCharset="utf-8" onSubmit={handleSubmit}>
+                    <label className="login__label" htmlFor="mail">
                         E-mail
                         <input className="login__input" type="mail" placeholder="example@domain.xyz" name="mail" required onChange={handleChange} />
                     </label>
-                    <label className="login__label" for="pwd">
+                    <label className="login__label" htmlFor="pwd">
                         Пароль
                         <input className="login__input" type="password" placeholder="" name="pwd" required onChange={handleChange} />
                     </label>

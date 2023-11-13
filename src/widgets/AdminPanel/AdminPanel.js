@@ -10,7 +10,7 @@ import './normalize.css'
 import { v4 as uuidv4 } from "uuid"
 
 
-export default function AdminPanel({data}) {
+export default function AdminPanel({data, setCallModal}) {
 
     const { films, halls, seances } = data
 
@@ -85,7 +85,7 @@ export default function AdminPanel({data}) {
             title: 'Управление залами',
             widgets: (
                 <>
-                    <SelectingHall halls={halls}/>
+                    <SelectingHall halls={halls} setCallModal={setCallModal}/>
                 </>
             )
         }, 
@@ -101,7 +101,7 @@ export default function AdminPanel({data}) {
             title: 'Конфигурация цен',
             widgets: (
                 <>
-                    <CreateSessionsPrices halls={filmsList[0].hallsSessions}/>
+                    <CreateSessionsPrices halls={halls}/>
                 </>
             )
         },

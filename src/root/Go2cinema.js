@@ -10,6 +10,7 @@ import Main from "./Main/Main";
 import Logo from "./Logo/Logo";
 
 import './style.css'
+import Modal from "./UI Kit/Modal/Modal";
 
 
 export default function Go2cinema() {
@@ -18,6 +19,11 @@ export default function Go2cinema() {
   const [isAdminPage, setIsAdminPage] = useState(false);
   const [admin, setAdmin] = useState(false)
   const [data, setData] = useState(null);
+
+  const [callModal, setCallModal] = useState({
+    title: '',
+    form: ''
+  })
 
   useEffect(() => {
     async function fetchData() {
@@ -49,21 +55,25 @@ export default function Go2cinema() {
 
 
   return (
-    <div className="App">
-      <Logo isAdminPage={isAdminPage} />
-      {/* <Main> */}
-      <Routes>
-        <Route path='/' element={<HomePage data={data} />}></Route>
-        <Route path='/hall' element={<HallPage data={data} />}></Route>
-        <Route path='/payment' element={<PaymentPage data={data} />}></Route>
-        <Route path='/ticket' element={<TicketPage data={data} />}></Route>
+    <>
+      {<Modal title={callModal.title} form={callModal.form} />}
+      <div className="App">
+        <Logo isAdminPage={isAdminPage} />
+        {/* <Main> */}
+        <Routes>
+          <Route path='/' element={<HomePage data={data} />}></Route>
+          <Route path='/hall' element={<HallPage data={data} />}></Route>
+          <Route path='/payment' element={<PaymentPage data={data} />}></Route>
+          <Route path='/ticket' element={<TicketPage data={data} />}></Route>
 
-        <Route path='/admin' element={<AdminPage data={data} admin={admin} setAdmin={setAdmin} setIsAdminPage={setIsAdminPage} />}></Route>
-        <Route path='/admin/login' element={<AdminPage admin={admin} setAdmin={setAdmin} setIsAdminPage={setIsAdminPage} />}></Route>
+          <Route path='/admin' element={<AdminPage data={data} admin={admin} setAdmin={setAdmin} setIsAdminPage={setIsAdminPage} setCallModal={setCallModal} />}></Route>
+          <Route path='/admin/login' element={<AdminPage admin={admin} setAdmin={setAdmin} setIsAdminPage={setIsAdminPage} />}></Route>
 
-        <Route path='/*' element={<P404 />}></Route>
-      </Routes>
-      {/* </Main> */}
-    </div>
+          <Route path='/*' element={<P404 />}></Route>
+        </Routes>
+
+        {/* </Main> */}
+      </div>
+    </>
   )
 }

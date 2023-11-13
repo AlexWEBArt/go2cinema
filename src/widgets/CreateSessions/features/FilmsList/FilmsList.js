@@ -5,9 +5,9 @@ export default function FilmsList({ films }) {
     const renderFilmBlock = (film) => {
         return (
             <div key={uuidv4()} className="conf-step__movie">
-                <img className="conf-step__movie-poster" alt="poster" src={film.image} />
-                <h3 className="conf-step__movie-title">{film.title}</h3>
-                <p className="conf-step__movie-duration">{film.duration}</p>
+                <img className="conf-step__movie-poster" alt="poster" src={film.film_poster} />
+                <h3 className="conf-step__movie-title">{film.film_name}</h3>
+                <p className="conf-step__movie-duration">{film.film_duration}</p>
             </div>
         )
     }

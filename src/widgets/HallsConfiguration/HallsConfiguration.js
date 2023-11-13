@@ -10,17 +10,27 @@ import TypesOfChairs from "./features/TypesOfChairs/TypesOfChairs";
 
 export default function HallsConfiguration({ halls }) {
     const [changedHall, setChangedHall] = useState(null)
-    console.log(changedHall)
+    const [changeConfig, setChangeConfig] = useState({
+        rows: '',
+        places: '',
+    })
+    const [hallConfiguration, setHallConfiguration] = useState(null)
 
     const hall = halls.filter(hall => hall.hall_name === changedHall)[0]
-    console.log(hall)
+
     return (
         <div className="conf-step__wrapper">
             <ChangeHall halls={halls} setChangedHall={setChangedHall}/>
-            <CharacteristicsHall hall={hall}/>
-            <TypesOfChairs />
-            <ConfigHallContainer hall={hall}/>
-            <SaveConfig />
+            {
+                hall &&
+                <>
+                <CharacteristicsHall hall={hall} setChangeConfig={setChangeConfig}/>
+                <TypesOfChairs />
+                <ConfigHallContainer hall={hall} changeConfig={changeConfig} setHallConfiguration={setHallConfiguration}/>
+                <SaveConfig hall={{hall, changeConfig, hallConfiguration}}/>
+                </>
+            }
+            
         </div>
     )
 }
