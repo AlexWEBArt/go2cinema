@@ -56,7 +56,7 @@ export default function Go2cinema() {
 
   return (
     <>
-      {<Modal title={callModal.title} form={callModal.form} />}
+      <Modal title={callModal.title} form={callModal.form} />
       <div className="App">
         <Logo isAdminPage={isAdminPage} />
         {/* <Main> */}

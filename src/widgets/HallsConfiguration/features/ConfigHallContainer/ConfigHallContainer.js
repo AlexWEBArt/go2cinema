@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react"
 
 export default function ConfigHallContainer({ hall, changeConfig, setHallConfiguration }) {
-    // if (!hall) return null
     const hallRef = useRef()
 
     useEffect(() => {
@@ -75,9 +74,7 @@ export default function ConfigHallContainer({ hall, changeConfig, setHallConfigu
                 <div className="conf-step__hall-wrapper"
                     ref={hallRef}
                     dangerouslySetInnerHTML={{ __html: hallConfig }}
-                >
-
-                </div>
+                />
                 :
                 <div className="conf-step__hall-wrapper"
                     ref={hallRef}

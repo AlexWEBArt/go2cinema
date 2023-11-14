@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "../../../../root/UI Kit/Modal/Modal";
 
-export default function AddFilm() {
+export default function AddFilm({setCallModal}) {
     const [film, setFilm] = useState({
         name: '',
         discription: '',
@@ -15,9 +15,10 @@ export default function AddFilm() {
         setFilm(prevConfig => ({...prevConfig, [name]: value}));
     }
 
-    const handleRemoveModal = (e) => [
-        e.target.closest('popup').remove()
-    ]
+    const handleRemoveModal = (e) => {
+        e.preventDefault()
+        e.target.closest('.popup').classList.remove('active')
+    }
 
     const handleAddFilm = async () => {
         const requestData = {
@@ -33,10 +34,9 @@ export default function AddFilm() {
     }
 
     const handleCallModal = (e) => {
-        const { target } = e
-        const hallName = target.closest('li').innerHTML
-        return (
-            <Modal title={'Добавление фильма'} form={
+        document.querySelector('.popup').classList.add('active')
+        setCallModal({
+            title: 'Добавление фильма', form: (
                 <form action="add_movie" method="post" accept-charset="utf-8">
                     <label class="conf-step__label conf-step__label-fullsize" for="name">
                         Название фильма
@@ -63,8 +63,8 @@ export default function AddFilm() {
                         <button class="conf-step__button conf-step__button-regular" onClick={handleRemoveModal}>Отменить</button>
                     </div>
                 </form>
-            } />
-        )
+            )
+        })
     }
 
     return (

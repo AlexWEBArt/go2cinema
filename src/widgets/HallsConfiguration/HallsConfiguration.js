@@ -20,17 +20,17 @@ export default function HallsConfiguration({ halls }) {
 
     return (
         <div className="conf-step__wrapper">
-            <ChangeHall halls={halls} setChangedHall={setChangedHall}/>
+            <ChangeHall halls={halls} setChangedHall={setChangedHall} />
             {
                 hall &&
                 <>
-                <CharacteristicsHall hall={hall} setChangeConfig={setChangeConfig}/>
-                <TypesOfChairs />
-                <ConfigHallContainer hall={hall} changeConfig={changeConfig} setHallConfiguration={setHallConfiguration}/>
-                <SaveConfig hall={{hall, changeConfig, hallConfiguration}}/>
+                    <CharacteristicsHall hall={hall} setChangeConfig={setChangeConfig} />
+                    <TypesOfChairs />
+                    <ConfigHallContainer hall={hall} changeConfig={changeConfig} setHallConfiguration={setHallConfiguration} />
+                    <SaveConfig hall={{ hall, changeConfig, hallConfiguration }} />
                 </>
             }
-            
+
         </div>
     )
 }

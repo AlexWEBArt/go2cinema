@@ -1,8 +1,11 @@
+import { useState } from "react";
+import SaveConfig from "../PanelItem/features/SaveConfig/SaveConfig";
 import AddFilm from "./features/AddFilm/AddFilm";
 import FilmsList from "./features/FilmsList/FilmsList";
 import HallsTimeLineList from "./features/HallsTimeLineList/HallsTimeLineList";
 
-export default function CreateSessions({ filmsList }) {
+export default function CreateSessions({ data, filmsList,  setCallModal }) {
+    const [dragedFilm, setDragedFilm] = useState(null)
     console.log(filmsList)
 
     const hallsSeances = [
@@ -88,9 +91,10 @@ export default function CreateSessions({ filmsList }) {
 
     return (
         <div className="conf-step__wrapper">
-            <AddFilm />
-            <FilmsList films={filmsList}/>
-            <HallsTimeLineList hallsSeances={hallsSeances} />
+            <AddFilm setCallModal={setCallModal}/>
+            <FilmsList films={filmsList} setDragedFilm={setDragedFilm}/>
+            <HallsTimeLineList data={data} dragedFilm={dragedFilm} setCallModal={setCallModal} hallsSeances={hallsSeances} />
+            <SaveConfig />
             {/* <div className="conf-step__movies">
                 <div className="conf-step__movie">
                     <img className="conf-step__movie-poster" alt="poster" src="i/poster.png" />
@@ -123,7 +127,7 @@ export default function CreateSessions({ filmsList }) {
                 </div>
             </div> */}
 
-            <div className="conf-step__seances">
+            {/* <div className="conf-step__seances">
                 <div className="conf-step__seances-hall">
                     <h3 className="conf-step__seances-title">Зал 1</h3>
                     <div className="conf-step__seances-timeline">
@@ -154,12 +158,12 @@ export default function CreateSessions({ filmsList }) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
-            <fieldset className="conf-step__buttons text-center">
+            {/* <fieldset className="conf-step__buttons text-center">
                 <button className="conf-step__button conf-step__button-regular">Отмена</button>
                 <input type="submit" value="Сохранить" className="conf-step__button conf-step__button-accent" />
-            </fieldset>
+            </fieldset> */}
         </div>
     )
 }

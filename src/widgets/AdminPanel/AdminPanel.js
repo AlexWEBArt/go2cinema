@@ -109,7 +109,7 @@ export default function AdminPanel({data, setCallModal}) {
             title: 'Сетка сеансов',
             widgets: (
                 <>
-                    <CreateSessions filmsList={films} seances={seances}/>
+                    <CreateSessions data={data} filmsList={films} seances={seances} setCallModal={setCallModal}/>
                 </>
             )
         },

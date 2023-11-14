@@ -1,10 +1,18 @@
 import { v4 as uuidv4 } from "uuid"
 
-export default function FilmsList({ films }) {
+export default function FilmsList({ films, setDragedFilm }) {
+
+    const handleMouseDownOnFilm = (e) => {
+        const { target } = e
+        const backgroundColor = target.closest('.conf-step__movie').style.background
+        const filmName = target.closest('.conf-step__movie').querySelector('.conf-step__movie-title').innerText
+        setDragedFilm(target.closest('.conf-step__movie'))
+        console.log(e)
+    }
 
     const renderFilmBlock = (film) => {
         return (
-            <div key={uuidv4()} className="conf-step__movie">
+            <div key={uuidv4()} className="conf-step__movie" onMouseDown={handleMouseDownOnFilm}>
                 <img className="conf-step__movie-poster" alt="poster" src={film.film_poster} />
                 <h3 className="conf-step__movie-title">{film.film_name}</h3>
                 <p className="conf-step__movie-duration">{film.film_duration}</p>
