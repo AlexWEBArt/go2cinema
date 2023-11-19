@@ -1,5 +1,5 @@
-export default function SetPrices({setPrices}) {
 
+export default function SetPrices({hall, prices, setPrices}) {
     const handleSetPrice = (e) => {
         const { name, value } = e.target;
         setPrices(prevConfig => ({...prevConfig, [name]: value}));
@@ -13,7 +13,7 @@ export default function SetPrices({setPrices}) {
             <div className="conf-step__legend">
                 <label className="conf-step__label">
                     Цена, рублей
-                    <input type="text" name="standart" className="conf-step__input" placeholder="0" onChange={handleSetPrice}/>
+                    <input type="text" name="standart" className="conf-step__input" placeholder={hall?.hall_price_standart} onChange={handleSetPrice}/>
                 </label>
                 за 
                 <span className="conf-step__chair conf-step__chair_standart"></span>
@@ -22,7 +22,7 @@ export default function SetPrices({setPrices}) {
             <div className="conf-step__legend">
                 <label className="conf-step__label">
                     Цена, рублей
-                    <input type="text" name="vip" className="conf-step__input" placeholder="0" value="350" onChange={handleSetPrice} />
+                    <input type="text" name="vip" className="conf-step__input" placeholder={hall?.hall_price_vip} onChange={handleSetPrice} />
                 </label>
                 за 
                 <span className="conf-step__chair conf-step__chair_vip"></span>

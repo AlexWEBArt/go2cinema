@@ -11,7 +11,6 @@ import { v4 as uuidv4 } from "uuid"
 
 
 export default function AdminPanel({data, setCallModal}) {
-
     const { films, halls, seances } = data
 
     const filmsList = [
@@ -117,7 +116,7 @@ export default function AdminPanel({data, setCallModal}) {
             title: 'Открыть продажи',
             widgets: (
                 <>
-                    <OpenSession />
+                    <OpenSession halls={halls}/>
                 </>
             )
         }

@@ -1,13 +1,16 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
+import { v4 as uuidv4 } from "uuid"
 
-export default function ConfigHallContainer({ hall, changeConfig, setHallConfiguration }) {
-    const hallRef = useRef()
-
-    useEffect(() => {
-        setHallConfiguration(hallRef.current)
-    }, [hallRef.current])
-
-    const hallConfig = hall.hall_config.replace(/className/g, 'class')
+export default function ConfigHallContainer({ hall, changeConfig, setHallConfiguration, hallConfiguration, hallRef }) {
+    // const [hallConfig, setHallConfig] = useState(hall.hall_config.replace(/className/g, 'class'))
+    // const hallRef = useRef()
+    // console.log(changeConfig)
+    // useEffect(() => {
+    //     if (changeConfig.rows && changeConfig.places) {
+    //         setHallConfig(null)
+    //     }
+    //     setHallConfiguration(hallRef.current)
+    // }, [changeConfig, hallRef.current])
 
     const handleSelectedChair = (e) => {
         const { target } = e
@@ -38,9 +41,9 @@ export default function ConfigHallContainer({ hall, changeConfig, setHallConfigu
     const renderHall = (config) => {
         if (!config.rows && !config.places) return null
         return (
-            config.rows.map(() => {
+            Array.from({ length: config.rows }).map(() => {
                 return (
-                    <div className="conf-step__row">
+                    <div key={uuidv4()} className="conf-step__row">
                         {renderRow(config)}
                     </div>
                 )
@@ -49,15 +52,16 @@ export default function ConfigHallContainer({ hall, changeConfig, setHallConfigu
     }
 
     const renderRow = (config) => {
+        console.log(config)
         return (
-            config.places.map(() => {
+            Array.from({ length: config.places }).map(() => {
                 return (
-                    <span className="conf-step__chair conf-step__chair_standart"></span>
+                    <span key={uuidv4()} className="conf-step__chair conf-step__chair_standart"></span>
                 )
             })
         )
     }
-
+    console.log(changeConfig)
     // взять данные из глобального состояния о количесте рядов
     // row * <div className="conf-step__row"></div>
 
@@ -70,89 +74,18 @@ export default function ConfigHallContainer({ hall, changeConfig, setHallConfigu
             onClick={handleSelectedChair}
         >
             {
-                hallConfig ?
-                <div className="conf-step__hall-wrapper"
-                    ref={hallRef}
-                    dangerouslySetInnerHTML={{ __html: hallConfig }}
-                />
-                :
-                <div className="conf-step__hall-wrapper"
-                    ref={hallRef}
-                >
-                    {renderHall(changeConfig)}
-                </div>
+                (changeConfig.rows && changeConfig.places) ?
+                    <div className="conf-step__hall-wrapper"
+                        ref={hallRef}
+                    >
+                        {renderHall(changeConfig)}
+                    </div>
+                    :
+                    <div className="conf-step__hall-wrapper"
+                        ref={hallRef}
+                        dangerouslySetInnerHTML={{ __html: hallConfiguration }}
+                    />
             }
-            {/* <div className="conf-step__hall-wrapper">
-                <div className="conf-step__row">
-                    <span className="conf-step__chair conf-step__chair_disabled"></span><span className="conf-step__chair conf-step__chair_disabled"></span>
-                    <span className="conf-step__chair conf-step__chair_disabled"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_disabled"></span>
-                    <span className="conf-step__chair conf-step__chair_disabled"></span><span className="conf-step__chair conf-step__chair_disabled"></span>
-                </div>
-
-                <div className="conf-step__row">
-                    <span className="conf-step__chair conf-step__chair_disabled"></span><span className="conf-step__chair conf-step__chair_disabled"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_disabled"></span><span className="conf-step__chair conf-step__chair_disabled"></span>
-                </div>
-
-                <div className="conf-step__row">
-                    <span className="conf-step__chair conf-step__chair_disabled"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_disabled"></span>
-                </div>
-
-                <div className="conf-step__row">
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_vip"></span>
-                    <span className="conf-step__chair conf-step__chair_vip"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_disabled"></span>
-                </div>
-
-                <div className="conf-step__row">
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_vip"></span><span className="conf-step__chair conf-step__chair_vip"></span>
-                    <span className="conf-step__chair conf-step__chair_vip"></span><span className="conf-step__chair conf-step__chair_vip"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_disabled"></span>
-                </div>
-
-                <div className="conf-step__row">
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_vip"></span><span className="conf-step__chair conf-step__chair_vip"></span>
-                    <span className="conf-step__chair conf-step__chair_vip"></span><span className="conf-step__chair conf-step__chair_vip"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_disabled"></span>
-                </div>
-
-                <div className="conf-step__row">
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_vip"></span><span className="conf-step__chair conf-step__chair_vip"></span>
-                    <span className="conf-step__chair conf-step__chair_vip"></span><span className="conf-step__chair conf-step__chair_vip"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_disabled"></span>
-                </div>
-
-                <div className="conf-step__row">
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_disabled"></span>
-                </div>
-
-                <div className="conf-step__row">
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                </div>
-
-                <div className="conf-step__row">
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                    <span className="conf-step__chair conf-step__chair_standart"></span><span className="conf-step__chair conf-step__chair_standart"></span>
-                </div>
-            </div> */}
         </div>
     )
 }
