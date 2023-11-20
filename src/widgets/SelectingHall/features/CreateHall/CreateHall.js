@@ -1,52 +1,41 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Modal from "../../../../root/UI Kit/Modal/Modal"
+import { HallNameContext } from "../../../../providers/HallConfigProvider/context/HallNameProvider"
 
 export default function CreateHall({setCallModal}) {
-    const [hallName, setHallName] = useState('')
-    const [requestData, setRequestData] = useState({
-        hall_name: ''
-    })
-    useEffect(() => {
-        console.log(hallName)
-        // const createHall = async (e) => {
-        //     await fetch('http://localhost:7070/createHall', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(requestData)
-        // })
-        // }
-        // if (requestData.hall_name) {
-        //     createHall()
-        // }
-    }, [hallName])
-    
-    const handleChangeName = (e) => {
-        const { value } = e.target
-        // setHallName(prevValue => prevValue + value)
-        setHallName(value);
-    }
+    // const [hallName, setHallName] = useState('')
+    // const [request, setRequest] = useState(false)
 
-    const handleCreateHall = async (e) => {
-        e.preventDefault()
-        // console.log(JSON.stringify({hall_name: hallName}))
-        // return await fetch('http://localhost:7070/createHall', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({hall_name: hallName})
-        // })
-        console.log(hallName)
-        // setRequestData({ hall_name: hallName });
-        await fetch('http://localhost:7070/createHall', {
+    const {hallName, setHallName, request, setRequest} = useContext(HallNameContext)
+
+    useEffect(() => {
+        const createHall = async () => {
+            await fetch('http://localhost:7070/createHall', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ hall_name: 'Зал 3' }),
-        }).then(result => console.log(result));
+            body: JSON.stringify(hallName)
+        })
+        }
+
+        if (request) {
+            createHall()
+            setRequest(false)
+        }
+    }, [request])
+    
+    const handleChangeName = (e) => {
+        const { value } = e.target
+        // setHallName(prevValue => prevValue + value)
+        setHallName({ hall_name: value});
+    }
+
+    const handleCreateHall = async (e) => {
+        e.preventDefault()
+
+        setRequest(true)
+
         handleRemoveModal(e)
     }
 

@@ -92,8 +92,9 @@ export default function FilmsList({ data, setCallModal }) {
         return (
             <div key={uuidv4()} className="conf-step__movie" onClick={handleCallModal}>
                 <img className="conf-step__movie-poster" alt="poster" src={film.film_poster} />
-                <h3 className="conf-step__movie-title">{film.film_name}</h3>
+                <h3 className="conf-step__movie-title">{film.film_name} <button className="conf-step__button conf-step__button-trash"></button></h3>
                 <p className="conf-step__movie-duration">{film.film_duration}</p>
+                
             </div>
         )
     }

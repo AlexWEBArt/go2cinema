@@ -5,14 +5,17 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Go2cinema from './root/Go2cinema';
 import { BrowserRouter } from 'react-router-dom';
+import AppProvider from './providers/AppProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <Provider store={store}> */}
+    <AppProvider>
       <BrowserRouter>
         <Go2cinema />
       </BrowserRouter>
+    </AppProvider>
     {/* </Provider> */}
   </React.StrictMode>
 );
