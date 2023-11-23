@@ -16,8 +16,6 @@ export default function AdminPage({admin, data, setIsAdminPage, setAdmin, setCal
 
 
     return (
-        // <div className="page">
-            <AdminPanel data={data} setCallModal={setCallModal}/>
-        // </div>
+        <AdminPanel data={data} setCallModal={setCallModal}/>
     )
 }

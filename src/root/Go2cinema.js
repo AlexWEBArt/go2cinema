@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import HomePage from "../pages/HomePage/HomePage";
 import HallPage from "../pages/HallPage/HallPage";
 import PaymentPage from "../pages/PaymentPage/PaymentPage";
@@ -11,6 +11,7 @@ import Logo from "./Logo/Logo";
 
 import './style.css'
 import Modal from "./UI Kit/Modal/Modal";
+import { AppDataContext } from "../providers/AppDataProvider/AppDataProvider";
 
 
 export default function Go2cinema() {
@@ -18,8 +19,9 @@ export default function Go2cinema() {
   document.body.classList.add('background-client');
   const [isAdminPage, setIsAdminPage] = useState(false);
   const [admin, setAdmin] = useState(false)
-  const [data, setData] = useState(null);
-
+  // const [data, setData] = useState(null);
+  const { data, setData, requestData, setRequestData } = useContext(AppDataContext)
+  // console.log('reload')
   const [callModal, setCallModal] = useState({
     title: '',
     form: ''
@@ -32,6 +34,7 @@ export default function Go2cinema() {
         if (response.ok) {
           const result = await response.json();
           setData(result);
+          setRequestData(false)
         } else {
           console.error('Failed to fetch data');
         }
@@ -41,7 +44,7 @@ export default function Go2cinema() {
     }
 
     fetchData();
-  }, [])
+  }, [requestData])
 
   // useEffect(() => {
   //   // В момент изменения авторизации, добавьте или удалите класс для body.

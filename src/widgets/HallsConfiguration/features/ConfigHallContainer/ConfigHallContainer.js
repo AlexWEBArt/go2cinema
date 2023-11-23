@@ -1,16 +1,15 @@
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { v4 as uuidv4 } from "uuid"
+import { HallSchemeContext } from "../../../../providers/HallConfigProvider/context/HallSchemeProvider"
 
-export default function ConfigHallContainer({ hall, changeConfig, setHallConfiguration, hallConfiguration, hallRef }) {
-    // const [hallConfig, setHallConfig] = useState(hall.hall_config.replace(/className/g, 'class'))
-    // const hallRef = useRef()
-    // console.log(changeConfig)
-    // useEffect(() => {
-    //     if (changeConfig.rows && changeConfig.places) {
-    //         setHallConfig(null)
-    //     }
-    //     setHallConfiguration(hallRef.current)
-    // }, [changeConfig, hallRef.current])
+export default function ConfigHallContainer({ hall }) {
+    const { hallScheme, setHallConfig } = useContext(HallSchemeContext)
+
+    const hallRef = useRef()
+
+    useEffect(() => {
+        setHallConfig({hall_config: hallRef.current})
+    }, [hallRef.current])
 
     const handleSelectedChair = (e) => {
         const { target } = e
@@ -29,17 +28,9 @@ export default function ConfigHallContainer({ hall, changeConfig, setHallConfigu
             target.classList.remove('conf-step__chair_disabled')
             return
         }
-        // if (target.classList.contains('buying-scheme__chair_standart')) {
-        //     target.classList.add('buying-scheme__chair_selected')
-        //     target.classList.remove('buying-scheme__chair_standart')
-        // } else if (target.classList.contains('buying-scheme__chair_selected')) {
-        //     target.classList.add('buying-scheme__chair_standart')
-        //     target.classList.remove('buying-scheme__chair_selected')
-        // }
     }
 
     const renderHall = (config) => {
-        if (!config.rows && !config.places) return null
         return (
             Array.from({ length: config.rows }).map(() => {
                 return (
@@ -52,7 +43,6 @@ export default function ConfigHallContainer({ hall, changeConfig, setHallConfigu
     }
 
     const renderRow = (config) => {
-        console.log(config)
         return (
             Array.from({ length: config.places }).map(() => {
                 return (
@@ -61,29 +51,22 @@ export default function ConfigHallContainer({ hall, changeConfig, setHallConfigu
             })
         )
     }
-    console.log(changeConfig)
-    // взять данные из глобального состояния о количесте рядов
-    // row * <div className="conf-step__row"></div>
-
-    // взять данные из глобального состояния о количесте мест в ряде и их типах
-    // place(type) * <span className="conf-step__chair ${type}"></span>
-
+    
     return (
         <div className="conf-step__hall"
-
             onClick={handleSelectedChair}
         >
             {
-                (changeConfig.rows && changeConfig.places) ?
+                !hall.hall_config || (hallScheme.hall_rows > 2 && hallScheme.hall_places > 2) ?
                     <div className="conf-step__hall-wrapper"
                         ref={hallRef}
                     >
-                        {renderHall(changeConfig)}
+                        {renderHall({rows: hallScheme.hall_rows, places: hallScheme.hall_places})}
                     </div>
                     :
                     <div className="conf-step__hall-wrapper"
                         ref={hallRef}
-                        dangerouslySetInnerHTML={{ __html: hallConfiguration }}
+                        dangerouslySetInnerHTML={{ __html: hall?.hall_config.replace(/className/g, 'class') }}
                     />
             }
         </div>

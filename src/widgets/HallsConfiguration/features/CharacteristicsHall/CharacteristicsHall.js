@@ -1,12 +1,15 @@
+import { useContext } from "react";
+import { HallSchemeContext } from "../../../../providers/HallConfigProvider/context/HallSchemeProvider";
 
 
-export default function CharacteristicsHall({ hall, changeConfig, setChangeConfig }) {
-    console.log(hall)
-    // вносятся данные по количеству рядов и мест в каждом ряде передаються в глобальное состояние
+export default function CharacteristicsHall({ hall }) {
+    const { hallScheme, setHallScheme } = useContext(HallSchemeContext)
 
     const handleChangeConfig = (e) => {
         const { name, value } = e.target;
-        setChangeConfig(prevConfig => ({ ...prevConfig, [name]: value }));
+        if (value < 2) return setHallScheme(prevConfig => ({ ...prevConfig, [name]: '2' }));
+
+        setHallScheme(prevConfig => ({ ...prevConfig, [name]: value }));
     }
 
     return (
@@ -18,12 +21,12 @@ export default function CharacteristicsHall({ hall, changeConfig, setChangeConfi
             <div className="conf-step__legend">
                 <label className="conf-step__label">
                     Рядов, шт
-                    <input type="text" name="rows" className="conf-step__input" placeholder={hall.hall_row} value={changeConfig.rows} onChange={handleChangeConfig} />
+                    <input type="text" name="hall_rows" className="conf-step__input" placeholder={hall?.hall_rows} value={hallScheme.hall_rows === '2' ? '' : hallScheme.hall_rows} onChange={handleChangeConfig} />
                 </label>
                 <span className="multiplier">x</span>
                 <label className="conf-step__label">
                     Мест, шт
-                    <input type="text" name="places" className="conf-step__input" placeholder={hall.hall_places} value={changeConfig.places} onChange={handleChangeConfig} />
+                    <input type="text" name="hall_places" className="conf-step__input" placeholder={hall?.hall_places} value={hallScheme.hall_places === '2' ? '' : hallScheme.hall_places} onChange={handleChangeConfig} />
                 </label>
             </div>
         </>

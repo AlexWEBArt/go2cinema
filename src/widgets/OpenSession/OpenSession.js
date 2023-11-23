@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ChangeHall from "../PanelItem/features/ChangeHall/ChangeHall";
+import { AppDataContext } from "../../providers/AppDataProvider/AppDataProvider";
 
 export default function OpenSession({ halls }) {
     const [changedHall, setChangedHall] = useState(null)
     const [isHallOpen, setIsHallOpen] = useState(false)
+
+    const { setRequestData } = useContext(AppDataContext)
 
     useEffect(() => {
         if (changedHall) {
@@ -12,17 +15,19 @@ export default function OpenSession({ halls }) {
     }, [changedHall, halls, setIsHallOpen])
 
     const handleClickHallOpen = async () => {
-        const requestData = {
+        const body = {
             hall_id: halls.filter(hall => hall.hall_name === changedHall)[0].hall_id,
             hall_open: !isHallOpen
         }
-        return await fetch('http://localhost:7070/updateHall', {
+        console.log(body)
+        await fetch('http://localhost:7070/openHall', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(requestData)
+            body: JSON.stringify(body)
         })
+        setRequestData(true)
     }
 
     return (

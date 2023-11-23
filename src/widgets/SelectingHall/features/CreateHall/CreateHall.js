@@ -1,16 +1,14 @@
-import { useContext, useEffect, useState } from "react"
-import Modal from "../../../../root/UI Kit/Modal/Modal"
+import { useContext, useEffect } from "react"
 import { HallNameContext } from "../../../../providers/HallConfigProvider/context/HallNameProvider"
+import { AppDataContext } from "../../../../providers/AppDataProvider/AppDataProvider"
 
 export default function CreateHall({setCallModal}) {
-    // const [hallName, setHallName] = useState('')
-    // const [request, setRequest] = useState(false)
-
     const {hallName, setHallName, request, setRequest} = useContext(HallNameContext)
+    const {setRequestData} = useContext(AppDataContext)
 
     useEffect(() => {
         const createHall = async () => {
-            await fetch('http://localhost:7070/createHall', {
+            return await fetch('http://localhost:7070/createHall', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,14 +18,17 @@ export default function CreateHall({setCallModal}) {
         }
 
         if (request) {
-            createHall()
+            createHall().then(result => {
+                if (result) setRequestData(true)
+            })
+            
             setRequest(false)
         }
     }, [request])
     
     const handleChangeName = (e) => {
         const { value } = e.target
-        // setHallName(prevValue => prevValue + value)
+
         setHallName({ hall_name: value});
     }
 

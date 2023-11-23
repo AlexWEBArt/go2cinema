@@ -1,9 +1,15 @@
 import HallNameProvider from "./context/HallNameProvider"
+import HallPriceProvider from "./context/HallPriceProvider"
+import HallSchemeProvider from "./context/HallSchemeProvider"
 
-const HallConfigProvider = ({children}) => {
+const HallConfigProvider = ({ children }) => {
     return (
         <HallNameProvider>
-            {children}
+            <HallSchemeProvider>
+                <HallPriceProvider>
+                    {children}
+                </HallPriceProvider>
+            </HallSchemeProvider>
         </HallNameProvider>
     )
 }

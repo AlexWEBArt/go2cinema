@@ -1,10 +1,20 @@
+import AppDataProvider from "./AppDataProvider/AppDataProvider"
+import FilmProvider from "./FilmProvider/FilmProvider"
 import HallConfigProvider from "./HallConfigProvider/HallConfigProvider"
+import SeanceProvider from "./SeanceProvider/SeanceProvider"
 
-const AppProvider = ({children}) => {
+const AppProvider = ({ children }) => {
     return (
-        <HallConfigProvider>
-            {children}
-        </HallConfigProvider>
+        <AppDataProvider>
+            <HallConfigProvider>
+                <FilmProvider>
+                    <SeanceProvider>
+                        
+                        {children}
+                    </SeanceProvider>
+                </FilmProvider>
+            </HallConfigProvider>
+        </AppDataProvider>
 
     )
 }

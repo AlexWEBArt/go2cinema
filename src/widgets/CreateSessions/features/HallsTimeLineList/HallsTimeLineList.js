@@ -12,18 +12,37 @@ export default function HallsTimeLineList({ data, hallsSeances, setCallModal }) 
         e.target.closest('.popup').classList.remove('active')
     }
 
-    const handleCallModalRemoveSeanse = (e) => {
+    const handleRemoveSeance = async (e, id) => {
+        e.preventDefault()
+
+        const result = await fetch('http://localhost:7070/removeSeance', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ seance_id: id })
+        })
+        if (!result.ok) console.log('Что-то пошло не так')
+        handleRemoveModal(e)
+    }
+
+    const handleCallModalRemoveSeanсe = (e) => {
         const { target } = e
         const seanceName = target.closest('.conf-step__seances-movie').querySelector('.conf-step__seances-movie-title').innerText
         const seanceStart = target.closest('.conf-step__seances-movie').querySelector('.conf-step__seances-movie-start').innerText
         const seanceHall = target.closest('.conf-step__seances-hall').querySelector('.conf-step__seances-title').innerText
+
+        const filmid = films.filter(film => film.film_name === seanceName)[0].film_id
+        const hallid = halls.filter(hall => hall.hall_name.toUpperCase() === seanceHall)[0].hall_id
+        const seanceId = seances.filter(seance  => seance.seance_filmid === filmid && seance.seance_hallid === hallid)[0].seance_id
+        
         document.querySelector('.popup').classList.add('active')
         setCallModal({
             title: 'Снятие с сеанса', form: (
                 <form action="delete_hall" method="post" acceptCharset="utf-8">
                     <p className="conf-step__paragraph">Вы действительно хотите снять с сеанса <span>{seanceStart}</span> в зале <span>{seanceHall}</span> фильм <span>{seanceName}</span>?</p>
                     <div className="conf-step__buttons text-center">
-                        <input type="submit" value="Удалить" className="conf-step__button conf-step__button-accent" />
+                        <input type="submit" value="Удалить" className="conf-step__button conf-step__button-accent" onClick={(e) => handleRemoveSeance(e, seanceId)}/>
                         <button className="conf-step__button conf-step__button-regular" onClick={handleRemoveModal}>Отменить</button>
                     </div>
                 </form>
@@ -33,9 +52,8 @@ export default function HallsTimeLineList({ data, hallsSeances, setCallModal }) 
 
     const renderSeanceMovie = (seance) => {
         const filmName = films.filter(film => film.film_id === seance.seance_filmid)[0].film_name
-        console.log(filmName)
         return (
-            <div key={uuidv4()} className="conf-step__seances-movie" style={timlineStyleEditor(seance.seance_time)} onClick={handleCallModalRemoveSeanse}>
+            <div key={uuidv4()} className="conf-step__seances-movie" style={timlineStyleEditor(seance.seance_time)} onClick={handleCallModalRemoveSeanсe}>
                 <p className="conf-step__seances-movie-title">{filmName}</p>
                 <p className="conf-step__seances-movie-start">{seance.seance_time}</p>
             </div>
@@ -57,40 +75,7 @@ export default function HallsTimeLineList({ data, hallsSeances, setCallModal }) 
 
     return (
         <div className="conf-step__movies">
-            {/* {hallsSeances.map(hall => renderSeancesHall(hall))} */}
             {halls.map(hall => renderSeancesHall(hall))}
-            {/* <div className="conf-step__seances">
-                <div className="conf-step__seances-hall">
-                    <h3 className="conf-step__seances-title">Зал 1</h3>
-                    <div className="conf-step__seances-timeline">
-                        <div className="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 0;">
-                            <p className="conf-step__seances-movie-title">Миссия выполнима</p>
-                            <p className="conf-step__seances-movie-start">00:00</p>
-                        </div>
-                        <div className="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 360px;">
-                            <p className="conf-step__seances-movie-title">Миссия выполнима</p>
-                            <p className="conf-step__seances-movie-start">12:00</p>
-                        </div>
-                        <div className="conf-step__seances-movie" style="width: 65px; background-color: rgb(202, 255, 133); left: 420px;">
-                            <p className="conf-step__seances-movie-title">Звёздные войны XXIII: Атака клонированных клонов</p>
-                            <p className="conf-step__seances-movie-start">14:00</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="conf-step__seances-hall">
-                    <h3 className="conf-step__seances-title">Зал 2</h3>
-                    <div className="conf-step__seances-timeline">
-                        <div className="conf-step__seances-movie" style="width: 65px; background-color: rgb(202, 255, 133); left: 595px;">
-                            <p className="conf-step__seances-movie-title">Звёздные войны XXIII: Атака клонированных клонов</p>
-                            <p className="conf-step__seances-movie-start">19:50</p>
-                        </div>
-                        <div className="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 660px;">
-                            <p className="conf-step__seances-movie-title">Миссия выполнима</p>
-                            <p className="conf-step__seances-movie-start">22:00</p>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
         </div>
     )
 }
