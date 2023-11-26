@@ -17,7 +17,6 @@ export default function TicketDiscription({ state }) {
     return (
         <>
             <p className="ticket__info">На фильм: <span className="ticket__details ticket__title">{seance.film.film_name}</span></p>
-            {/* <p className="ticket__info">Ряд: <span className="ticket__details ticket__chairs">{selectedChair[0].row}</span></p> */}
             <p className="ticket__info">Места:
                 <span className="ticket__details ticket__chairs">
                     <table border="1">

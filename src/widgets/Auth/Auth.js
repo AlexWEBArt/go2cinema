@@ -1,52 +1,62 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router";
+import { AuthContext } from "../../providers/AuthProvaider/AuthProvider";
 
-
-export default function Auth({ admin, setAdmin }) {
+export default function Auth() {
     const navigate = useNavigate()
     const [inputChange, setInputChange] = useState({
         userName: '',
         password: ''
-    })
-    const [requestData, setRequestData] = useState({
-        body: '',
-        url: ''
-    })
+    });
+
+    const { admin, token, setToken, setAdmin } = useContext(AuthContext)
 
     useEffect(() => {
-        if (admin) {
-            navigate("/admin");
+        if (token) {
+            console.log(token)
+            setAdmin(true)
+            return navigate("/admin");
         }
-    }, [admin])
+        setAdmin(false)
+    }, [admin, token, navigate]);
 
-    useEffect(() => {
-        if (requestData.body.login) {
-            async function login() {
-                return await fetch(requestData.url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(requestData.body)
-                })
-            }
-            login().then(result => setAdmin(result.ok))
-        }
-    }, [requestData])
+    const saveTokenToLocalStorage = (token) => {
+        localStorage.setItem('Go2CinemaToken', token);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
 
         name === 'mail' && setInputChange(prevChange => ({ ...prevChange, userName: value }));
         name === 'pwd' && setInputChange(prevChange => ({ ...prevChange, password: value }));
-    }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const body = { login: inputChange.userName, password: inputChange.password }
+        const body = { username: inputChange.userName, password: inputChange.password };
 
-        setRequestData({ body, url: 'http://localhost:7070/login' })
-    }
+        try {
+            const response = await fetch('http://localhost:7070/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                setToken(result.token);
+                setAdmin(true);
+                saveTokenToLocalStorage(result.token);
+            } else {
+                setAdmin(false);
+            }
+        } catch (error) {
+            console.error("Error during login:", error);
+            setAdmin(false);
+        }
+    };
 
     return (
         <section className="login">
@@ -54,7 +64,7 @@ export default function Auth({ admin, setAdmin }) {
                 <h2 className="login__title">Авторизация</h2>
             </header>
             <div className="login__wrapper">
-                <form className="login__form" action="login_submit" method="get" acceptCharset="utf-8" onSubmit={handleSubmit}>
+                <form className="login__form" onSubmit={handleSubmit}>
                     <label className="login__label" htmlFor="mail">
                         E-mail
                         <input className="login__input" type="mail" placeholder="example@domain.xyz" name="mail" required onChange={handleChange} />

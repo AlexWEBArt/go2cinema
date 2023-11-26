@@ -1,10 +1,7 @@
-import { useRef, useState } from "react"
+import { useRef } from "react"
 
 export default function SchemeHall({ hall, setSelectedChairs }) {
-    // const [selectedChairs, setSelectedChairs] = useState(null)
-    // const {hall_places, hall_row} = hall
     const hallConfig = hall.hall_config.replace(/conf-step/g, 'buying-scheme').replace(/className/g, 'class')
-    console.log(hall)
 
     const hallRef = useRef()
 
@@ -14,13 +11,6 @@ export default function SchemeHall({ hall, setSelectedChairs }) {
             target.classList.toggle('buying-scheme__chair_selected')
             setSelectedChairs(findSelectedChairsPositions(hallRef))
         }
-        // if (target.classList.contains('buying-scheme__chair_standart')) {
-        //     target.classList.add('buying-scheme__chair_selected')
-        //     target.classList.remove('buying-scheme__chair_standart')
-        // } else if (target.classList.contains('buying-scheme__chair_selected')) {
-        //     target.classList.add('buying-scheme__chair_standart')
-        //     target.classList.remove('buying-scheme__chair_selected')
-        // }
     }
 
     const findSelectedChairsPositions = (ref) => {
@@ -38,31 +28,12 @@ export default function SchemeHall({ hall, setSelectedChairs }) {
         return positions;
     }
 
-    // const renderPlaces = (row) => {
-
-    //     return Array.from({ length: hall_places }, (_, placeIdx) => (
-    //         <span key={placeIdx} className="buying-scheme__chair buying-scheme__chair_standart" onClick={(e) => handleSelectedChair(e)}></span>
-    //       ))
-    // }
-
-    // const renderRow = () => {
-    //     return Array.from({ length: hall_row }, (_, rowIdx) => (
-    //         <div key={rowIdx} className="buying-scheme__row">
-    //           {renderPlaces(rowIdx)}
-    //         </div>
-    //     ));
-    // }
-
-
-
     return (
         <div
             className="buying-scheme__wrapper"
             ref={hallRef}
             dangerouslySetInnerHTML={{ __html: hallConfig }} onClick={handleSelectedChair}
         >
-            {/* {renderRow()} */}
-
         </div>
 
     )

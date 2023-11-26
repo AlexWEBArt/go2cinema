@@ -2,7 +2,7 @@ export default function Hint({children}) {
 
     return (
         <>
-            <p class="ticket__hint">{children}</p>
+            <p className="ticket__hint">{children}</p>
         </>
     )
 }

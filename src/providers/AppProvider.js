@@ -1,20 +1,25 @@
 import AppDataProvider from "./AppDataProvider/AppDataProvider"
+import AuthProvider from "./AuthProvaider/AuthProvider"
+import ClientProvider from "./ClientProvider/ClientProvider"
 import FilmProvider from "./FilmProvider/FilmProvider"
 import HallConfigProvider from "./HallConfigProvider/HallConfigProvider"
 import SeanceProvider from "./SeanceProvider/SeanceProvider"
 
 const AppProvider = ({ children }) => {
     return (
-        <AppDataProvider>
-            <HallConfigProvider>
-                <FilmProvider>
-                    <SeanceProvider>
-                        
-                        {children}
-                    </SeanceProvider>
-                </FilmProvider>
-            </HallConfigProvider>
-        </AppDataProvider>
+        <AuthProvider>
+            <AppDataProvider>
+                <HallConfigProvider>
+                    <FilmProvider>
+                        <SeanceProvider>
+                            <ClientProvider>
+                                {children}
+                            </ClientProvider>
+                        </SeanceProvider>
+                    </FilmProvider>
+                </HallConfigProvider>
+            </AppDataProvider>
+        </AuthProvider>
 
     )
 }

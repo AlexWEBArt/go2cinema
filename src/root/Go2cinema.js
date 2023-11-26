@@ -12,16 +12,15 @@ import Logo from "./Logo/Logo";
 import './style.css'
 import Modal from "./UI Kit/Modal/Modal";
 import { AppDataContext } from "../providers/AppDataProvider/AppDataProvider";
+import { AuthContext } from "../providers/AuthProvaider/AuthProvider";
 
 
 export default function Go2cinema() {
   document.body.classList.remove('background-admin');
   document.body.classList.add('background-client');
-  const [isAdminPage, setIsAdminPage] = useState(false);
-  const [admin, setAdmin] = useState(false)
-  // const [data, setData] = useState(null);
+
   const { data, setData, requestData, setRequestData } = useContext(AppDataContext)
-  // console.log('reload')
+  const { admin, setToken, setAdmin } = useContext(AuthContext)
   const [callModal, setCallModal] = useState({
     title: '',
     form: ''
@@ -46,22 +45,17 @@ export default function Go2cinema() {
     fetchData();
   }, [requestData])
 
-  // useEffect(() => {
-  //   // В момент изменения авторизации, добавьте или удалите класс для body.
-  //   if (isAdminPage) {
-  //     document.body.classList.add('background-admin');
-  //   } else {
-  //     document.body.classList.add('background-client');
-  //   }
-  //   setIsAdminPage(false)
-  // }, [isAdminPage]);
-
+  const handleLogout = () => {
+    setToken('');
+    setAdmin(false);
+    localStorage.removeItem('Go2CinemaToken');
+  };
 
   return (
     <>
       <Modal title={callModal.title} form={callModal.form} />
       <div className="App">
-        <Logo isAdminPage={isAdminPage} />
+        <Logo onLogout={handleLogout} isAdminPage={admin} />
         {/* <Main> */}
         <Routes>
           <Route path='/' element={<HomePage data={data} />}></Route>
@@ -69,8 +63,8 @@ export default function Go2cinema() {
           <Route path='/payment' element={<PaymentPage data={data} />}></Route>
           <Route path='/ticket' element={<TicketPage data={data} />}></Route>
 
-          <Route path='/admin' element={<AdminPage data={data} admin={admin} setAdmin={setAdmin} setIsAdminPage={setIsAdminPage} setCallModal={setCallModal} />}></Route>
-          <Route path='/admin/login' element={<AdminPage admin={admin} setAdmin={setAdmin} setIsAdminPage={setIsAdminPage} />}></Route>
+          <Route path='/admin' element={<AdminPage data={data} setCallModal={setCallModal} />}></Route>
+          <Route path='/admin/login' element={<AdminPage />}></Route>
 
           <Route path='/*' element={<P404 />}></Route>
         </Routes>

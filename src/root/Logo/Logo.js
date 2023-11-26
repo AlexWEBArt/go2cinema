@@ -1,21 +1,23 @@
-// import { useState } from "react"
+import { useNavigate } from 'react-router';
 import './logo.css'
 
-export default function Logo({isAdminPage}) {
+export default function Logo({ isAdminPage, onLogout }) {
+    const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     // В момент изменения авторизации, добавьте или удалите класс для body.
-    //     if (admin) {
-    //       document.body.classList.add('background-admin');
-    //     } else {
-    //       document.body.classList.add('background-client');
-    //     }
-    //   }, [admin]);
+    const handleLogout = () => {
+        localStorage.removeItem('Go2CinemaToken')
+        onLogout()
+        navigate('/admin/login')
+    };
+
 
     return (
         <header className={"page-header"} >
-            <h1 className="page-header__title">Идём<span>в</span>кино</h1>
-            {isAdminPage && <span className="page-header__subtitle">Администраторррская</span>}
+            <div>
+                <h1 className="page-header__title">Идём<span>в</span>кино</h1>
+                {isAdminPage && <span className="page-header__subtitle">Администраторррская</span>}
+            </div>
+            {isAdminPage && <button className='btn-logout' onClick={handleLogout}>Выйти</button>}
         </header>
     )
 }

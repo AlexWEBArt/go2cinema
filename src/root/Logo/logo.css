@@ -1,4 +1,7 @@
 .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 1.4rem;
   }
   
@@ -28,4 +31,18 @@
 .page-header .page-header__subtitle {
     font-size: 1rem;
     letter-spacing: 0.46em; 
+}
+
+.btn-logout {
+    padding: 12px 32px;
+    font-size: 2rem; 
+    border: none;
+    background-color: #63536C;
+    border-radius: 20px;
+    color: #FFFFFF;
+}
+
+.btn-logout:hover {
+    background-color: #BC95D6;
+    color: #2c2b2b;
 }

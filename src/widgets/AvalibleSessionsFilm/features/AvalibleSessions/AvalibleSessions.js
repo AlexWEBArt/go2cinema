@@ -1,7 +1,11 @@
+import { useContext } from "react"
 import { Link } from "react-router-dom"
 import { v4 as uuidv4 } from "uuid"
+import { ClientContext } from "../../../../providers/ClientProvider/ClientProvider"
 
 export default function AvalibleSessions({ film, filmSeances }) {
+
+    const { setSelectedSession } = useContext(ClientContext)
 
     const halls = []
 
@@ -13,7 +17,11 @@ export default function AvalibleSessions({ film, filmSeances }) {
 
     const renderStartSession = (session, hall) => {
         return (
-            <li key={uuidv4()} className="movie-seances__time-block">
+            <li key={uuidv4()} className="movie-seances__time-block" onClick={() => setSelectedSession({
+                hallName: hall,
+                film: film,
+                startSession: session
+            })}>
                 <Link
                     className="movie-seances__time"
                     to={'/hall'}

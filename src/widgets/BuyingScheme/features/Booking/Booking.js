@@ -3,14 +3,8 @@ import { Link } from "react-router-dom";
 
 export default function Booking({seance, selectedChair}) {
     const [style, setStyle] = useState({pointerEvents: 'none'})
-    // let style = 
-
-    // if (!selectedChair) {
-    //     return null
-    // }
 
     useEffect(() => {
-        // console.log(selectedChair)
         if (selectedChair.length) {
             setStyle(null)
         } else {

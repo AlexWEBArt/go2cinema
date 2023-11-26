@@ -4,7 +4,7 @@ export default function ImageQR() {
 
     return (
         <>
-            <img class="ticket__info-qr" src={imageUrl} alt="QR код электронного билета на сеанс"/>
+            <img className="ticket__info-qr" src={imageUrl} alt="QR код электронного билета на сеанс"/>
         </>
     )
 }
