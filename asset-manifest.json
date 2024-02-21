@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.d5b52cd1.css",
-    "main.js": "/static/js/main.0db393e0.js",
-    "static/js/787.327528f6.chunk.js": "/static/js/787.327528f6.chunk.js",
-    "static/media/background-client.jpg": "/static/media/background-client.8057f0e543a33be5a896.jpg",
-    "index.html": "/index.html",
-    "main.d5b52cd1.css.map": "/static/css/main.d5b52cd1.css.map",
-    "main.0db393e0.js.map": "/static/js/main.0db393e0.js.map",
-    "787.327528f6.chunk.js.map": "/static/js/787.327528f6.chunk.js.map"
+    "main.css": "/ra-online-store/static/css/main.cdaf6518.css",
+    "main.js": "/ra-online-store/static/js/main.8c827ba6.js",
+    "static/js/787.327528f6.chunk.js": "/ra-online-store/static/js/787.327528f6.chunk.js",
+    "static/media/background-client.jpg": "/ra-online-store/static/media/background-client.8057f0e543a33be5a896.jpg",
+    "index.html": "/ra-online-store/index.html",
+    "main.cdaf6518.css.map": "/ra-online-store/static/css/main.cdaf6518.css.map",
+    "main.8c827ba6.js.map": "/ra-online-store/static/js/main.8c827ba6.js.map",
+    "787.327528f6.chunk.js.map": "/ra-online-store/static/js/787.327528f6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d5b52cd1.css",
-    "static/js/main.0db393e0.js"
+    "static/css/main.cdaf6518.css",
+    "static/js/main.8c827ba6.js"
   ]
 }
