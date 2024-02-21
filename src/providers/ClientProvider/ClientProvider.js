@@ -6,10 +6,17 @@ const ClientProvider = ({children}) => {
     const [selectedSession, setSelectedSession] = useState({
         hallName: '',
         film: '',
-        startSession: ''
+        seanceId: '',
+        startSession: '',
+        seanceHallConfig: ''
     })
-    const [selectedPlaces, setSelectedPlaces] = useState(null)
-    const [requestData, setRequestData] = useState(false)
+    const [selectedPlaces, setSelectedPlaces] = useState({
+        row: '',
+        place: '',
+        cost: '',
+        seanceConfig: '',
+        seanceId: ''
+    })
     
     return <ClientContext.Provider value={{selectedSession, setSelectedSession, selectedPlaces, setSelectedPlaces}}>{children}</ClientContext.Provider>
 }

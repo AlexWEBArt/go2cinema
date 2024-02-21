@@ -1,17 +1,16 @@
-// import AvalibleSessionsFilmItem from './features/AvalibleSessionsFilmItem/AvalibleSessionsFilmItem'
-// import AvalibleSessions from './features/AvalibleSessions/AvalibleSessions'
 import Booking from './features/Booking/Booking'
 import LegendHall from './features/LegendHall/LegendHall'
 import SchemeHall from './features/SchemeHall/SchemeHall'
 import SessionInfo from './features/SessionInfo/SessionInfo'
-import './buyingScheme.css'
-import { useState } from 'react'
+// import './buyingScheme.css'
+import { useEffect, useState } from 'react'
 
-// import { v4 as uuidv4 } from "uuid"
-
-
-export default function BuyingScheme({ halls, filmSeance }) {
+export default function BuyingScheme({ halls, filmSeance, setSelectedPlaces }) {
     const [selectedChair, setSelectedChairs] = useState([])
+
+    useEffect(() => {
+        setSelectedPlaces(selectedChair)
+    }, [selectedChair, setSelectedPlaces])
 
     const hall = halls.filter(hall => hall.hall_name === filmSeance.hallName)[0]
 
@@ -19,7 +18,7 @@ export default function BuyingScheme({ halls, filmSeance }) {
         <section className="buying">
             <SessionInfo seance={filmSeance} />
             <div className="buying-scheme">
-                <SchemeHall hall={hall} setSelectedChairs={setSelectedChairs} />
+                <SchemeHall hall={hall} filmSeance={filmSeance} setSelectedChairs={setSelectedChairs} />
                 <LegendHall />
             </div>
             <Booking selectedChair={selectedChair} seance={filmSeance}/>

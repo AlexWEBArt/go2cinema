@@ -1,39 +1,43 @@
-export default function TicketDiscription({ state }) {
-    if (!state) return null
+import { v4 as uuidv4 } from "uuid"
 
-    const { seance, selectedChair } = state
+export default function TicketDiscription({ selectedSession, selectedPlaces }) {
+
+    const { hallName, film, startSession } = selectedSession
+
     let averageCost = 0
-    
-    const table = selectedChair.map(selectedPlace => {
+
+    const table = selectedPlaces.map(selectedPlace => {
         averageCost += Number(selectedPlace.cost)
         return (
-            <tr>
-                <td style={{'textAlign': 'center'}}>{selectedPlace.row}</td>
-                <td style={{'textAlign': 'center'}}>{selectedPlace.place}</td>
+            <tr key={uuidv4()}>
+                <td style={{ 'textAlign': 'center' }}>{selectedPlace.row}</td>
+                <td style={{ 'textAlign': 'center' }}>{selectedPlace.place}</td>
             </tr>
         )
     })
 
     return (
         <>
-            <p className="ticket__info">На фильм: <span className="ticket__details ticket__title">{seance.film.film_name}</span></p>
-            <p className="ticket__info">Места:
+            <p className="ticket__info">На фильм: <span className="ticket__details ticket__title">{film.film_name}</span></p>
+            <p >
                 <span className="ticket__details ticket__chairs">
-                    <table border="1">
-                        <thead>
-                            <tr>
-                                <th>Ряд</th>
-                                <th>Место</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {table}
-                        </tbody>
-                    </table>
+
                 </span>
             </p >
-            <p className="ticket__info">В зале: <span className="ticket__details ticket__hall">{seance.hallName}</span></p>
-            <p className="ticket__info">Начало сеанса: <span className="ticket__details ticket__start">{seance.startSession}</span></p>
+            <table border="1" style={{fontSize: '16px', margin: '10px 0'}}>
+            <caption className="ticket__info">Места:</caption>
+                <thead border="0">
+                    <tr border="0">
+                        <th style={{padding: '5px'}}>Ряд</th>
+                        <th style={{padding: '5px'}}>Место</th>
+                    </tr>
+                </thead>
+                <tbody border="0">
+                    {table}
+                </tbody>
+            </table>
+            <p className="ticket__info">В зале: <span className="ticket__details ticket__hall">{hallName}</span></p>
+            <p className="ticket__info">Начало сеанса: <span className="ticket__details ticket__start">{startSession}</span></p>
             <p className="ticket__info">Стоимость: <span className="ticket__details ticket__cost">{averageCost}</span> рублей</p>
         </>
     )

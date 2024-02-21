@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ChangeHall from "../PanelItem/features/ChangeHall/ChangeHall";
 import SaveConfig from "../PanelItem/features/SaveConfig/SaveConfig";
 import SetPrices from "./features/SetPrices/SetPrices";

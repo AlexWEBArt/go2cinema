@@ -20,7 +20,7 @@ export default function OpenSession({ halls }) {
             hall_open: !isHallOpen
         }
         console.log(body)
-        await fetch('http://localhost:7070/openHall', {
+        await fetch('https://go2cinema-backend.onrender.com/openHall', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

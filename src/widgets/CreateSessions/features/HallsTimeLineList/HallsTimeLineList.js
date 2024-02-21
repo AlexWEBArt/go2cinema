@@ -1,29 +1,39 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import timlineStyleEditor from "../../../../utils/timlineStyleEditor"
 
 import { v4 as uuidv4 } from "uuid"
+import Modal from "../../../../root/UI Kit/Modal/Modal"
+import { AppDataContext } from "../../../../providers/AppDataProvider/AppDataProvider"
 
-export default function HallsTimeLineList({ data, hallsSeances, setCallModal }) {
+export default function HallsTimeLineList({ data }) {
+    const [visible, setVisible] = useState(false)
+    const [contentModal, setContentModal] = useState({
+        title: '',
+        form: null
+    })
     // Необходимо написать утилиту, ктороя будет определять куда на временной линии разместить фильм в зависимости от начала сеанса
     const { films, halls, seances } = data
 
+    const { setRequestData } = useContext(AppDataContext)
+
     const handleRemoveModal = (e) => {
         e.preventDefault()
-        e.target.closest('.popup').classList.remove('active')
+        setVisible(false)
     }
 
     const handleRemoveSeance = async (e, id) => {
         e.preventDefault()
 
-        const result = await fetch('http://localhost:7070/removeSeance', {
+        const result = await fetch('https://go2cinema-backend.onrender.com/removeSeance', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ seance_id: id })
         })
-        if (!result.ok) console.log('Что-то пошло не так')
         handleRemoveModal(e)
+        if (!result.ok) console.log('Что-то пошло не так')
+        setRequestData(true)
     }
 
     const handleCallModalRemoveSeanсe = (e) => {
@@ -36,8 +46,7 @@ export default function HallsTimeLineList({ data, hallsSeances, setCallModal }) 
         const hallid = halls.filter(hall => hall.hall_name.toUpperCase() === seanceHall)[0].hall_id
         const seanceId = seances.filter(seance  => seance.seance_filmid === filmid && seance.seance_hallid === hallid)[0].seance_id
         
-        document.querySelector('.popup').classList.add('active')
-        setCallModal({
+        setContentModal({
             title: 'Снятие с сеанса', form: (
                 <form action="delete_hall" method="post" acceptCharset="utf-8">
                     <p className="conf-step__paragraph">Вы действительно хотите снять с сеанса <span>{seanceStart}</span> в зале <span>{seanceHall}</span> фильм <span>{seanceName}</span>?</p>
@@ -48,6 +57,7 @@ export default function HallsTimeLineList({ data, hallsSeances, setCallModal }) 
                 </form>
             )
         })
+        setVisible(true)
     }
 
     const renderSeanceMovie = (seance) => {
@@ -76,6 +86,14 @@ export default function HallsTimeLineList({ data, hallsSeances, setCallModal }) 
     return (
         <div className="conf-step__movies">
             {halls.map(hall => renderSeancesHall(hall))}
+            {
+                visible &&
+                <Modal
+                    title={contentModal.title}
+                    form={contentModal.form}
+                    handleRemoveModal={() => setVisible(false)}
+                />
+            }
         </div>
     )
 }

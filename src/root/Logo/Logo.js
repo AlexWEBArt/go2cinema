@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router';
-import './logo.css'
+// import './logo.css'
 
 export default function Logo({ isAdminPage, onLogout }) {
     const navigate = useNavigate();

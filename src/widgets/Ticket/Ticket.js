@@ -1,46 +1,32 @@
-// import AvalibleSessionsFilmItem from './features/AvalibleSessionsFilmItem/AvalibleSessionsFilmItem'
-// import AvalibleSessions from './features/AvalibleSessions/AvalibleSessions'
-// import Booking from './features/Booking/Booking'
-// import LegendHall from './features/LegendHall/LegendHall'
-// import SchemeHall from './features/SchemeHall/SchemeHall'
-// import SessionInfo from './features/SessionInfo/SessionInfo'
-import { useState } from 'react'
 import GetCode from './features/GetCode/GetCode'
 import Hint from './features/Hint/Hint'
 import TicketDiscription from './features/TicketDiscription/TicketDiscription'
 import TicketTitle from './features/TicketTitle/TicketTitle'
-import './ticket.css'
-import { useLocation } from 'react-router'
 import ImageQR from './features/ImageQR/ImageQR'
+import { Link } from 'react-router-dom'
 
-// import { v4 as uuidv4 } from "uuid"
-
-
-export default function Ticket({from}) {
-    const [isFrom, setIsFrom] = useState(from)
-    const { state } = useLocation()
-    const title = isFrom === 'payment' ? 'Вы выбрали билеты:' : 'Электронный билет'
-
+export default function Ticket({ from, selectedSession, selectedPlaces, setRequestData }) {
+    const title = from === 'payment' ? 'Вы выбрали билеты:' : 'Электронный билет'
 
     return (
         <section className="ticket">
-            <TicketTitle title={title}/>
+            <TicketTitle title={title} />
             <div className="ticket__info-wrapper">
-                <TicketDiscription state={state} />
+                <TicketDiscription selectedSession={selectedSession} selectedPlaces={selectedPlaces} />
                 {
-                    isFrom === 'payment' && 
+                    from === 'payment' &&
                     <>
-                        <GetCode />
+                        <GetCode selectedSession={selectedSession} selectedPlaces={selectedPlaces} />
                         <Hint>
                             После оплаты билет будет доступен в этом окне, а также придёт вам на почту. Покажите QR-код нашему контроллёру у входа в зал.
                         </Hint>
                     </>
-                    
+
                 }
                 {
-                    isFrom === 'ticket' && 
+                    from === 'ticket' &&
                     <>
-                        <ImageQR />
+                        <ImageQR selectedSession={selectedSession} selectedPlaces={selectedPlaces} />
                         <Hint>
                             Покажите QR-код нашему контроллеру для подтверждения бронирования.
                         </Hint>
@@ -49,6 +35,14 @@ export default function Ticket({from}) {
                 <Hint>
                     Приятного просмотра!
                 </Hint>
+                {
+                    from === 'ticket' &&
+                    <div className="conf-step__buttons text-center">
+                        <Link to={'/'} className="conf-step__button conf-step__button-regular link" onClick={() => setRequestData(true)}>
+                                Вернуться на главную
+                        </Link>
+                    </div>
+                }
             </div>
         </section>
     )

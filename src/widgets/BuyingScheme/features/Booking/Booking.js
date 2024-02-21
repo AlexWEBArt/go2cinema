@@ -13,13 +13,10 @@ export default function Booking({seance, selectedChair}) {
     }, [selectedChair])
 
     return (
-        <Link className="link" style={style} to={'/payment'} state={{
-            seance,
-            selectedChair
-        }}>
+        <Link className="link" style={style} to={'/payment'}>
             <button 
                 className="acceptin-button" 
-                onСlick={() => null}
+                // onСlick={() => null}
             >
                 Забронировать
             </button>

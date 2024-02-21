@@ -5,8 +5,8 @@ import CharacteristicsHall from "./features/CharacteristicsHall/CharacteristicsH
 import ConfigHallContainer from "./features/ConfigHallContainer/ConfigHallContainer";
 import TypesOfChairs from "./features/TypesOfChairs/TypesOfChairs";
 
-
 export default function HallsConfiguration({ halls }) {
+
     const [changedHall, setChangedHall] = useState(null)
 
     const hall = halls.filter(hall => hall.hall_name === changedHall)[0]

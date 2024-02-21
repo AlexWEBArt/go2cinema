@@ -3,11 +3,12 @@ import AdminPanel from "../../widgets/AdminPanel/AdminPanel";
 import Auth from "../../widgets/Auth/Auth";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvaider/AuthProvider";
-
+import './styles.scss'
+// import './image.scss'
 
 export default function AdminPage({data, setCallModal}) {
-    document.body.classList.remove('background-client');
-    document.body.classList.add('background-admin');
+    document.body.style.backgroundImage = "url('../background-admin.jpg')"
+    document.body.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
 
     const location = useLocation();
     const navigate = useNavigate()

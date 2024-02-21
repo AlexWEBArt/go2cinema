@@ -10,7 +10,6 @@ export default function CreateSessions({ data, setCallModal }) {
             <AddFilm setCallModal={setCallModal}/>
             <FilmsList data={data} setCallModal={setCallModal}/>
             <HallsTimeLineList data={data} setCallModal={setCallModal} />
-            {/* <SaveConfig /> */}
         </div>
     )
 }

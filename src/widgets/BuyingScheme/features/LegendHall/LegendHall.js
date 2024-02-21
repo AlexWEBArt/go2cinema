@@ -1,4 +1,4 @@
-export default function LegendHall({}) {
+export default function LegendHall() {
 
     return (
         <div className="buying-scheme__legend">

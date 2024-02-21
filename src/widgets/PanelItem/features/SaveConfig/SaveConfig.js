@@ -4,20 +4,18 @@ import { HallSchemeContext } from "../../../../providers/HallConfigProvider/cont
 import { AppDataContext } from "../../../../providers/AppDataProvider/AppDataProvider"
 
 export default function SaveConfig(props) {
-    const { hall, component, hallConfiguration, changeConfig, setChangeConfig, setPrices, prices = null, seances = null } = props
+    const { hall, component } = props
 
     const { hallPrice, setHallPrice } = useContext(HallPriceContext)
-    const { hallScheme, setHallScheme, hallConfig, setHallConfig, request, setRequest } = useContext(HallSchemeContext)
+    const { hallScheme, setHallScheme, hallConfig, setHallConfig } = useContext(HallSchemeContext)
     const { setRequestData } = useContext(AppDataContext)
-    // const { hallPrice, setHallPrice } = useContext(HallPriceContext)
 
     const handleCancelConfig = (e) => {
-        // e.target.closest('popup').remove()
         switch (component) {
             case 'HallsConfiguration':
                 setHallScheme({
-                    hall_places: '2',
-                    hall_rows: '2'
+                    hall_places: '',
+                    hall_rows: ''
                 })
                 setHallConfig({
                     hall_config: ''
@@ -32,18 +30,6 @@ export default function SaveConfig(props) {
             default:
                 return null
         }
-        // if (hallConfiguration) {
-        //     setChangeConfig({
-        //         rows: '',
-        //         places: '',
-        //     })
-        // }
-        // if (prices) {
-        //     setPrices({
-        //         standart: '',
-        //         vip: ''
-        //     })
-        // }
     }
 
     const handleClickSaveConfig = async () => {
@@ -52,28 +38,22 @@ export default function SaveConfig(props) {
         let requestData = {
             hall_id: hall.hall_id,
             hall_name: hall.hall_name,
-            // hall_price_standart: prices?.standart,
-            // hall_price_vip: prices?.vip,
-            // hall_config: hallConfiguration,
-            // hall_places: changeConfig?.places,
-            // hall_rows: changeConfig?.rows,
         }
         switch (component) {
             case 'HallsConfiguration':
-                if (hallConfig.hall_config && (hallScheme.hall_places === '2' || hallScheme.hall_rows === '2')) {
-                    requestData = {
-                        ...requestData,
-                        hall_config: hallConfig.hall_config.innerHTML,
-                        hall_places: hall.hall_places,
-                        hall_rows: hall.hall_rows,
-                    }
-                    break
+                if (!hallScheme.hall_places || !hallScheme.hall_rows) {
+                    const inputPlaces = document.querySelector('[name="hall_places"]')
+                    const inputRows = document.querySelector('[name="hall_rows"]')
+                    
+                    if (!inputPlaces.values) inputPlaces.classList.add('invalid')
+                    if (!inputRows.values) inputRows.classList.add('invalid')
+                    return
                 }
                 requestData = {
                     ...requestData,
                     hall_config: hallConfig.hall_config.innerHTML,
-                    hall_places: hallScheme.hall_places,
-                    hall_rows: hallScheme.hall_rows,
+                    hall_places: hallScheme.hall_places || hall.hall_places,
+                    hall_rows: hallScheme.hall_rows || hall.hall_rows,
                 }
                 break
             case 'CreateSessionsPrices':
@@ -85,7 +65,6 @@ export default function SaveConfig(props) {
                 };
                 break
             case 'CreateSessions':
-                // if (!hallPrice.hall_price_standart || !hallPrice.hall_price_vip) return null
                 requestData = {
 
                 };
@@ -93,17 +72,7 @@ export default function SaveConfig(props) {
             default:
                 return null
         }
-        if (seances) {
-            // return await fetch('http://localhost:7070/updateHall', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(requestData)
-            // })
-        }
-        console.log(requestData)
-        const result = await fetch('http://localhost:7070/updateHall', {
+        const result = await fetch('https://go2cinema-backend.onrender.com/updateHall', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -114,9 +83,9 @@ export default function SaveConfig(props) {
     }
 
     return (
-        <fieldset className="conf-step__buttons text-center">
+        <div className="conf-step__buttons text-center">
             <button className="conf-step__button conf-step__button-regular" onClick={handleCancelConfig}>Отмена</button>
             <input type="submit" value="Сохранить" className="conf-step__button conf-step__button-accent" onClick={handleClickSaveConfig} />
-        </fieldset>
+        </div>
     )
 }

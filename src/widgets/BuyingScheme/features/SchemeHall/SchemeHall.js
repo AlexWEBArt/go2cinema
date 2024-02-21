@@ -1,12 +1,14 @@
 import { useRef } from "react"
 
-export default function SchemeHall({ hall, setSelectedChairs }) {
-    const hallConfig = hall.hall_config.replace(/conf-step/g, 'buying-scheme').replace(/className/g, 'class')
+export default function SchemeHall({ hall, filmSeance, setSelectedChairs }) {
+    const hallConfig = filmSeance.seanceHallConfig.replace(/conf-step/g, 'buying-scheme').replace(/className/g, 'class')
 
     const hallRef = useRef()
 
     const handleSelectedChair = (e) => {
         const { target } = e
+        if (target.classList.contains('buying-scheme__chair_taken')) return null
+        
         if (target.classList.contains('buying-scheme__chair_standart') || target.classList.contains('buying-scheme__chair_vip')) {
             target.classList.toggle('buying-scheme__chair_selected')
             setSelectedChairs(findSelectedChairsPositions(hallRef))
@@ -22,7 +24,7 @@ export default function SchemeHall({ hall, setSelectedChairs }) {
             const row = Array.from(rowElement.parentNode.children).indexOf(rowElement) + 1;
             const place = Array.from(rowElement.children).indexOf(chair) + 1;
             const cost = chair.classList.contains('buying-scheme__chair_vip') ? hall.hall_price_vip : hall.hall_price_standart
-            positions.push({ row, place, cost });
+            positions.push({ row, place, cost, seanceConfig: ref.current, seanceId: filmSeance.seance_id });
         });
 
         return positions;

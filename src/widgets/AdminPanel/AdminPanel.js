@@ -4,13 +4,13 @@ import HallsConfiguration from '../HallsConfiguration/HallsConfiguration'
 import OpenSession from '../OpenSession/OpenSession'
 import PanelItem from '../PanelItem/PanelItem'
 import SelectingHall from '../SelectingHall/SelectingHall'
-import './adminPanel.css'
-import './normalize.css'
+// import './adminPanel.css'
+// import './normalize.css'
 
 import { v4 as uuidv4 } from "uuid"
 
-
 export default function AdminPanel({data, setCallModal}) {
+
     const { films, halls, seances } = data
 
     const steps = [

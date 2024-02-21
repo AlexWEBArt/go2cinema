@@ -1,11 +1,12 @@
 import AvalibleSessionsFilm from "../../widgets/AvalibleSessionsFilm/AvalibleSessionsFilm";
 import DateLineSelection from "../../widgets/DateLineSelection/DateLineSelection";
-
 import { v4 as uuidv4 } from "uuid"
+import Loader from "../../root/Loader/Loader";
 
 export default function HomePage({ data }) {
 
-    if (!data) return
+    if (!data) return <Loader/>
+// обернуть useMamo 10-22
     const { films, halls, seances } = data
 
     const openHalls = halls.filter(hall => hall.hall_open)
@@ -21,9 +22,10 @@ export default function HomePage({ data }) {
         .filter(film => film && !uniqueFilmIds.has(film.film_id) && uniqueFilmIds.add(film.film_id));
 
     return (
-        <div className="page">
-            <DateLineSelection />
+        <main className="page">
+            {/* <DateLineSelection /> */}
             {availableFilms.map(film => {
+                // передавать готовые данные для рендеринга
                 const filmSeances = openSeances.filter(seance => seance.seance_filmid === film.film_id)
                 const filmHalls = filmSeances.map(seance => {
                     const hallName = openHalls.filter(hall => seance.seance_hallid === hall.hall_id)[0].hall_name
@@ -33,8 +35,9 @@ export default function HomePage({ data }) {
                         hall_name: hallName
                     })
                 })
-                return <AvalibleSessionsFilm key={uuidv4()} film={film} filmSeances={filmHalls} />
+                // изпользовать в качестве ключа айди фильма
+                return <AvalibleSessionsFilm key={film.film_id} film={film} filmSeances={filmHalls} />
             })}
-        </div>
+        </main>
     )
 }

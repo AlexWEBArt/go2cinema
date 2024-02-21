@@ -9,10 +9,11 @@ export default function ConfigHallContainer({ hall }) {
 
     useEffect(() => {
         setHallConfig({hall_config: hallRef.current})
-    }, [hallRef.current])
+    }, [hallRef, setHallConfig])
 
     const handleSelectedChair = (e) => {
         const { target } = e
+        // использовать библиотеку ClassNames
         if (target.classList.contains('conf-step__chair_standart')) {
             target.classList.add('conf-step__chair_vip')
             target.classList.remove('conf-step__chair_standart')
@@ -57,7 +58,7 @@ export default function ConfigHallContainer({ hall }) {
             onClick={handleSelectedChair}
         >
             {
-                !hall.hall_config || (hallScheme.hall_rows > 2 && hallScheme.hall_places > 2) ?
+                !hall.hall_config || (hallScheme.hall_rows && hallScheme.hall_places) ?
                     <div className="conf-step__hall-wrapper"
                         ref={hallRef}
                     >

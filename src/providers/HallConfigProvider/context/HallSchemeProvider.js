@@ -4,8 +4,8 @@ export const HallSchemeContext = createContext(null)
 
 const HallSchemeProvider = ({children}) => {
     const [hallScheme, setHallScheme] = useState({
-        hall_places: '2',
-        hall_rows: '2'
+        hall_places: '',
+        hall_rows: ''
     })
     const [hallConfig, setHallConfig] = useState({
         hall_congig: '',

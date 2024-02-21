@@ -1,11 +1,13 @@
-import { useLocation } from "react-router";
 import Ticket from "../../widgets/Ticket/Ticket";
+import { ClientContext } from "../../providers/ClientProvider/ClientProvider";
+import { useContext } from "react";
 
 export default function PaymentPage() {
-    const { state } = useLocation()
+    const { selectedSession, selectedPlaces } = useContext(ClientContext)
+
     return (
-        <div className="page">
-            <Ticket from={'payment'} state={state}/>
-        </div>
+        <main className="page">
+            <Ticket from={'payment'} selectedSession={selectedSession} selectedPlaces={selectedPlaces}/>
+        </main>
     )
 }

@@ -3,8 +3,8 @@ import { useRef } from "react"
 export default function HeaderPanelItem({title}) {
     const headerRef = useRef()
 
-    const handleAdminHeaderClick = () => {
-        const target = headerRef.current
+    const handleAdminHeaderClick = (e) => {
+        const target = e.target.closest('.conf-step__header')
         
         if (target.classList.contains('conf-step__header_opened')) {
             target.classList.remove('conf-step__header_opened')

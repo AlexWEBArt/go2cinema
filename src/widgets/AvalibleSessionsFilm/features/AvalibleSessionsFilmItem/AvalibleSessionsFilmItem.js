@@ -1,6 +1,3 @@
-// import DateItemList from "./components/DateItemList/DateItemList";
-// import './avalibleSessionsFilms.css'
-
 export default function AvalibleSessionsFilmItem({film}) {
 
     return (

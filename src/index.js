@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+// import './index.css';
 // import App from './App';
+// import './styles.scss' 
 import reportWebVitals from './reportWebVitals';
 import Go2cinema from './root/Go2cinema';
 import { BrowserRouter } from 'react-router-dom';
