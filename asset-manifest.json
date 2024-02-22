@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/go2cinema/static/css/main.0892c904.css",
+    "main.css": "/go2cinema/static/css/main.4834a7ae.css",
     "main.js": "/go2cinema/static/js/main.02f3ffc9.js",
     "static/js/787.327528f6.chunk.js": "/go2cinema/static/js/787.327528f6.chunk.js",
     "static/media/background-client.jpg": "/go2cinema/static/media/background-client.8057f0e543a33be5a896.jpg",
     "index.html": "/go2cinema/index.html",
-    "main.0892c904.css.map": "/go2cinema/static/css/main.0892c904.css.map",
+    "main.4834a7ae.css.map": "/go2cinema/static/css/main.4834a7ae.css.map",
     "main.02f3ffc9.js.map": "/go2cinema/static/js/main.02f3ffc9.js.map",
     "787.327528f6.chunk.js.map": "/go2cinema/static/js/787.327528f6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0892c904.css",
+    "static/css/main.4834a7ae.css",
     "static/js/main.02f3ffc9.js"
   ]
 }
