@@ -1,8 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { AuthContext } from "../../providers/AuthProvaider/AuthProvider";
+import Loader from "../../root/Loader/Loader";
 
 export default function Auth() {
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const [inputChange, setInputChange] = useState({
         userName: '',
@@ -13,7 +16,6 @@ export default function Auth() {
 
     useEffect(() => {
         if (token) {
-            console.log(token)
             setAdmin(true)
             return navigate("/admin");
         }
@@ -36,27 +38,34 @@ export default function Auth() {
         const body = { username: inputChange.userName, password: inputChange.password };
 
         try {
-            const response = await fetch('http://localhost:7070/login', {
+            const response = await fetch('https://go2cinema-backend.onrender.com/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(body),
             });
+            setLoading(true)
 
             if (response.ok) {
                 const result = await response.json();
                 setToken(result.token);
                 setAdmin(true);
                 saveTokenToLocalStorage(result.token);
+                setLoading(false)
             } else {
                 setAdmin(false);
+                setError(response)
+                setLoading(false)
             }
         } catch (error) {
             console.error("Error during login:", error);
             setAdmin(false);
+            setLoading(false)
         }
     };
+
+    if (loading) return <Loader />
 
     return (
         <section className="login">
@@ -64,6 +73,7 @@ export default function Auth() {
                 <h2 className="login__title">Авторизация</h2>
             </header>
             <div className="login__wrapper">
+                
                 <form className="login__form" onSubmit={handleSubmit}>
                     <label className="login__label" htmlFor="mail">
                         E-mail
@@ -73,6 +83,7 @@ export default function Auth() {
                         Пароль
                         <input className="login__input" type="password" placeholder="" name="pwd" required onChange={handleChange} />
                     </label>
+                    {error.status === 401 && <p className="input-error">*Неверный логин или пароль</p>}
                     <div className="text-center">
                         <input value="Авторизоваться" type="submit" className="login__button" />
                     </div>

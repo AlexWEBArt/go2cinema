@@ -52,15 +52,15 @@ export default function Go2cinema() {
         <Logo onLogout={handleLogout} isAdminPage={admin} />
 
         <Routes>
-          <Route path='/' element={<HomePage data={data}/>}></Route>
-          <Route path='/hall' element={<HallPage data={data} />}></Route>
-          <Route path='/payment' element={<PaymentPage data={data} />}></Route>
-          <Route path='/ticket' element={<TicketPage data={data} />}></Route>
+          <Route path='/go2cinema' element={<HomePage data={data}/>}></Route>
+          <Route path='/go2cinema/hall' element={<HallPage data={data} />}></Route>
+          <Route path='/go2cinema/payment' element={<PaymentPage data={data} />}></Route>
+          <Route path='/go2cinema/ticket' element={<TicketPage data={data} />}></Route>
 
-          <Route path='/admin' element={<AdminPage data={data} />}></Route>
-          <Route path='/admin/login' element={<AdminPage />}></Route>
+          <Route path='/go2cinema/admin' element={<AdminPage data={data} />}></Route>
+          <Route path='/go2cinema/admin/login' element={<AdminPage />}></Route>
 
-          <Route path='/*' element={<P404 />}></Route>
+          <Route path='/go2cinema/*' element={<P404 />}></Route>
         </Routes>
       </div>
     </>

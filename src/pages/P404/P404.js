@@ -5,7 +5,7 @@ export default function P404() {
         <div className="page">
             <p className="error-404">Извините, такой страницы не существует...</p>
             <div className="conf-step__buttons btn-404">
-                <Link to={'/'} className="conf-step__button conf-step__button-regular link">
+                <Link to={'/go2cinema/'} className="conf-step__button conf-step__button-regular link">
                     Вернуться на главную
                 </Link>
             </div>

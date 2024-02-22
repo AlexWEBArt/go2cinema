@@ -416,12 +416,15 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
   }
 
   &:has(.invalid)::after {
-    content: '*Заполните это поля';
+    content: '*Заполните эти поля';
     color: red;
   }
 }
 
-// .conf-step__label-fullsize
+.input-error {
+  padding-top: 5px;
+  color: red;
+}
 
 .conf-step__input, .login__input {
   display: block;

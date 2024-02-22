@@ -1,10 +1,11 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { HallPriceContext } from "../../../../providers/HallConfigProvider/context/HallPriceProvider"
 import { HallSchemeContext } from "../../../../providers/HallConfigProvider/context/HallSchemeProvider"
 import { AppDataContext } from "../../../../providers/AppDataProvider/AppDataProvider"
 
 export default function SaveConfig(props) {
     const { hall, component } = props
+    const [error, setError] = useState('')
 
     const { hallPrice, setHallPrice } = useContext(HallPriceContext)
     const { hallScheme, setHallScheme, hallConfig, setHallConfig } = useContext(HallSchemeContext)
@@ -33,22 +34,24 @@ export default function SaveConfig(props) {
     }
 
     const handleClickSaveConfig = async () => {
-
-
+        
+        if (!hall) return setError('*Выберите зал')
+        setError('')
         let requestData = {
             hall_id: hall.hall_id,
             hall_name: hall.hall_name,
         }
+
         switch (component) {
             case 'HallsConfiguration':
                 if (!hallScheme.hall_places || !hallScheme.hall_rows) {
                     const inputPlaces = document.querySelector('[name="hall_places"]')
                     const inputRows = document.querySelector('[name="hall_rows"]')
-                    
-                    if (!inputPlaces.values) inputPlaces.classList.add('invalid')
-                    if (!inputRows.values) inputRows.classList.add('invalid')
+
+                    if (!inputPlaces.values || !inputRows.values) setError('*Заполните поля "Рядов" и "Мест"')
                     return
                 }
+                setError('')
                 requestData = {
                     ...requestData,
                     hall_config: hallConfig.hall_config.innerHTML,
@@ -57,7 +60,7 @@ export default function SaveConfig(props) {
                 }
                 break
             case 'CreateSessionsPrices':
-                if (!hallPrice.hall_price_standart || !hallPrice.hall_price_vip) return null
+                if (!hallPrice.hall_price_standart || !hallPrice.hall_price_vip) return setError('*Заполните все поля "Цена"')
                 requestData = {
                     ...requestData,
                     hall_price_standart: hallPrice.hall_price_standart,
@@ -79,13 +82,17 @@ export default function SaveConfig(props) {
             },
             body: JSON.stringify(requestData)
         })
-        if (result.ok) setRequestData(true)
+        if (result.ok) {
+            setRequestData(true)
+            handleCancelConfig()
+        }
     }
 
     return (
         <div className="conf-step__buttons text-center">
             <button className="conf-step__button conf-step__button-regular" onClick={handleCancelConfig}>Отмена</button>
             <input type="submit" value="Сохранить" className="conf-step__button conf-step__button-accent" onClick={handleClickSaveConfig} />
+            {error && <p className="input-error">{error}</p>}
         </div>
     )
 }

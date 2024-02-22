@@ -5,15 +5,6 @@ import { ClientContext } from "../../providers/ClientProvider/ClientProvider";
 export default function HallPage({ data }) {
 
     const { selectedSession, setSelectedPlaces } = useContext(ClientContext)
-
-    // if (!state && !data) {
-    //     return (
-    //         <div className="page">
-    //             Sorry, wrong number!
-    //         </div>
-    //     )
-    // }
-
     const { halls } = data
 
     return (

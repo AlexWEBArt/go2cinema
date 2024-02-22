@@ -27,7 +27,7 @@ export default function AvalibleSessions({ film, filmSeances }) {
             })}>
                 <Link
                     className="movie-seances__time"
-                    to={'/hall'}
+                    to={'/go2cinema/hall'}
                 >
                     {seance.seance_time}
                 </Link>

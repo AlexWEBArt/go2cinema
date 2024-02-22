@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 export default function GetCode({selectedSession, selectedPlaces}) {
 
     const { seanceConfig } = selectedPlaces[0]
-    console.log(seanceConfig)
 
     const requstData = {seance_id: selectedSession.seanceId, seance_config: seanceConfig.innerHTML.replace(/selected/g, 'taken')}
     const handleClickGetCode = async () => {
@@ -17,7 +16,7 @@ export default function GetCode({selectedSession, selectedPlaces}) {
     }
 
     return (
-        <Link className="link" to={'/ticket'}>
+        <Link className="link" to={'/go2cinema/ticket'}>
             <button 
                 className="acceptin-button"
                 onClick={handleClickGetCode}

@@ -4,10 +4,8 @@ import Auth from "../../widgets/Auth/Auth";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvaider/AuthProvider";
 import './styles.scss'
-// import './image.scss'
 
 export default function AdminPage({data, setCallModal}) {
-    document.body.style.backgroundImage = "url('../background-admin.jpg')"
     document.body.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
 
     const location = useLocation();
@@ -16,14 +14,16 @@ export default function AdminPage({data, setCallModal}) {
     const { admin, token, setToken } = useContext(AuthContext)
 
     useEffect(() => {
-        if (location.pathname !== '/admin/login') {
-            return navigate("/admin/login");
+        if (location.pathname !== '/go2cinema/admin/login') {
+            document.body.style.backgroundImage = "url('../go2cinema/background-admin.jpg')"
+            return navigate("/go2cinema/admin/login");
         }
     }, [])
 
     useEffect(() => {
-        if (location.pathname === '/admin/login' && admin) {
-            return navigate("/admin");
+        if (location.pathname === '/go2cinema/admin/login' && admin) {
+            document.body.style.backgroundImage = "url('../background-admin.jpg')"
+            return navigate("/go2cinema/admin");
         }
     }, [admin])
 
@@ -34,7 +34,6 @@ export default function AdminPage({data, setCallModal}) {
     }
 
     if (!data) return
-
 
     return (
         <AdminPanel data={data} setCallModal={setCallModal}/>

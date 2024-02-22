@@ -38,7 +38,7 @@ export default function Ticket({ from, selectedSession, selectedPlaces, setReque
                 {
                     from === 'ticket' &&
                     <div className="conf-step__buttons text-center">
-                        <Link to={'/'} className="conf-step__button conf-step__button-regular link" onClick={() => setRequestData(true)}>
+                        <Link to={'/go2cinema/'} className="conf-step__button conf-step__button-regular link" onClick={() => setRequestData(true)}>
                                 Вернуться на главную
                         </Link>
                     </div>

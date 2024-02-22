@@ -2,6 +2,9 @@
   "name": "go2cinema",
   "version": "0.1.0",
   "private": true,
+  "repository": "https://github.com/go2cinema.git",
+  "homepage": "https://alexwebart.github.io/go2cinema/",
+  "author": "AlexWEBArt",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
