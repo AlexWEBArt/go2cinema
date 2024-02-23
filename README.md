@@ -42,4 +42,4 @@ https://alexwebart.github.io/go2cinema
 
 -Node.js Koa
 
-Хостинг сервера - Render (url) - https://ra-online-store-backend.onrender.com - бесплатный хостинг, подъем из спящего режима около 30 сек.
+Хостинг сервера - Render (url) - https://go2cinema-backend.onrender.com - бесплатный хостинг, подъем из спящего режима около 30 сек.
